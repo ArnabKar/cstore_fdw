@@ -134,8 +134,8 @@ As an example, we demonstrate loading and querying data to/from a column store
 table from scratch here. Let's start with downloading and decompressing the data
 files.
 
-    wget http://examples.citusdata.com/customer_reviews_1998.csv.gz
-    wget http://examples.citusdata.com/customer_reviews_1999.csv.gz
+    wget http://examples.citusdata.com/customer_reviews_1998.csv.gz -P /directory/to/download/
+    wget http://examples.citusdata.com/customer_reviews_1999.csv.gz -P /directory/to/download/
 
     gzip -d customer_reviews_1998.csv.gz
     gzip -d customer_reviews_1999.csv.gz
@@ -173,8 +173,8 @@ OPTIONS(compression 'pglz');
 Next, we load data into the table:
 
 ```SQL
-COPY customer_reviews FROM '/home/user/customer_reviews_1998.csv' WITH CSV;
-COPY customer_reviews FROM '/home/user/customer_reviews_1999.csv' WITH CSV;
+COPY customer_reviews FROM '/directory/to/download/customer_reviews_1998.csv' WITH CSV;
+COPY customer_reviews FROM '/directory/to/download/customer_reviews_1999.csv' WITH CSV;
 ```
 
 **Note.** If you are getting ```ERROR: cannot copy to foreign table
@@ -230,7 +230,7 @@ hosts.  You can easily install and run other PostgreSQL extensions and foreign d
 wrappers—including cstore_fdw—alongside Citus.
 
 You can create a cstore_fdw table and distribute it using the
-```master_create_distributed_table()``` UDF just like any other table. You can load data
+```create_distributed_table()``` UDF just like any other table. You can load data
 using the ```copy``` command as you would do in single node PostgreSQL.
 
 Using Skip Indexes
